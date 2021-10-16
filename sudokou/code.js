@@ -10,7 +10,7 @@ const problem = [
     [0, 4, 0, 0, 5, 0, 0, 3, 6],
     [7, 0, 3, 0, 1, 8, 0, 0, 0]
 ]
-function makeExpectedList(arr, rowIndex, columnIndex) {
+function makeExpectedNumbers(arr, rowIndex, columnIndex) {
     let inColumnExpectedList = [];
     let inRowExpectedList = [];
     let inSquareExpectedList = [];
@@ -59,36 +59,34 @@ function makeExpectedList(arr, rowIndex, columnIndex) {
       return expectedList;
 }
 
-function findEmptyList(arr) {
-  let emptyList = [];
+function findEmptyPoint(arr) {
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
       if (arr[i][j] === 0) {
-        emptyList = [...emptyList, {rowIndex: i, columnIndex: j}];
+        return [i, j];
       }
     }
   }
-  return emptyList;
 }
+
 // 479
 function sudokou(arr) {
-  console.log(arr);
-  let emptyList = findEmptyList(arr);
-  if (emptyList.length === 0) {
-      return arr;
+  //console.log(arr);
+  let emptyPoint = findEmptyPoint(arr);
+  if (emptyPoint === undefined) {
+    console.log(arr);
+    return true;
   }
-  for (let emptyItem of emptyList) {
-    console.log(emptyItem);
-    let expectedList = makeExpectedList(arr, emptyItem.rowIndex, emptyItem.columnIndex);
-    if (expectedList.length === 0) {
-        break;
-    }
-    for (let expectedItem of expectedList) {
-        console.log(expectedItem);
-        arr[emptyItem.rowIndex][emptyItem.columnIndex] = expectedItem;
-        return sudokou(arr);
+  //console.log('[' + emptyItem.rowIndex + ', ' + emptyItem.columnIndex + ']');
+  let expectedNumbers = makeExpectedNumbers(arr, emptyPoint[0], emptyPoint[1]);
+  for (let expectedNumber of expectedNumbers) {
+    arr[emptyPoint[0]][emptyPoint[1]] = expectedNumber;
+    if (sudokou(arr) === true) {
+      return true;
     }
   }
+  arr[emptyPoint[0]][emptyPoint[1]] = 0;
+  return false;
 }
 
 console.log(sudokou(problem));
