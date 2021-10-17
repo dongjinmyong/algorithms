@@ -1,22 +1,9 @@
-/* 의사코드
-1
-12, 13
-121, 123 | 131, 132
-1213 | 1231  1232 || 1312 | 1321, 1323
-12131 | 12132 || 12313 | 12321 ||| 13121 | 13123 || 13212 || 13231
-121323
-1213231
-1231
-*/
-let code = '';
-
 function barcode(n) {
+  let code = '';
   if (barcodeMaker(n)) {
     return code;
   }
-}
-
-function barcodeMaker(n) {
+  function barcodeMaker(n) {
     if (code.length === n) {
         return true;
     }
@@ -31,6 +18,7 @@ function barcodeMaker(n) {
     code = code.slice(0, -1);
     return false;
   }
+}
 
 function test(str) {
     for (let i = 1; i <= parseInt(str.length / 2); i++) {
@@ -43,5 +31,5 @@ function test(str) {
     return true;
 }
 
-let output = barcode(20);
+let output = barcode(7);
 console.log(output);
