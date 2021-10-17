@@ -31,5 +31,5 @@ function test(str) {
     return true;
 }
 
-let output = barcode(7);
+let output = barcode(20);
 console.log(output);
